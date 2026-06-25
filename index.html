@@ -809,7 +809,19 @@ function saveCloud(){
   const u=document.getElementById("cloudInput").value.trim();
   try{ if(u)localStorage.setItem(CLOUD_KEY,u); else localStorage.removeItem(CLOUD_KEY); }catch(e){}
   cloudUrl=u; closeCloud();
-  if(u){ lastSyncJson=""; skipPush=false; firstSync=true; cloudPull(); } else setSync("off");
+  if(u){
+    lastSyncJson=""; skipPush=false; firstSync=true;
+    if(data.length){
+      // 連線時本機已有資料：問使用者要以哪邊為主，避免本機資料被雲端蓋掉
+      if(confirm("要把「這台目前的 "+data.length+" 筆資料」上傳並覆蓋雲端嗎？\n\n按「確定」＝以這台為主（上傳）\n按「取消」＝改用雲端現有的資料")){
+        cloudPush();
+      } else {
+        cloudPull();
+      }
+    } else {
+      cloudPull();
+    }
+  } else setSync("off");
 }
 
 /* ---------- menu ---------- */
