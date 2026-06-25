@@ -758,10 +758,17 @@ function cloudPull(){
   setSync("loading");
   fetch(cloudUrl).then(r=>r.json()).then(arr=>{
     if(Array.isArray(arr)){
-      const json=JSON.stringify(arr);
-      if(json!==lastSyncJson){
-        lastSyncJson=json; skipPush=true;
-        data=normalizeArr(arr); render();
+      if(arr.length){
+        // 雲端有資料：以雲端為準
+        const json=JSON.stringify(arr);
+        if(json!==lastSyncJson){
+          lastSyncJson=json; skipPush=true;
+          data=normalizeArr(arr); render();
+        }
+      } else {
+        // 雲端是空的：絕不覆蓋本機資料；若本機有資料就上傳當作初始資料
+        if(data.length){ lastSyncJson=""; cloudPush(); }
+        else { lastSyncJson="[]"; }
       }
     }
     setSync("synced");
