@@ -218,6 +218,7 @@
         <button onclick="document.getElementById('importFile').click()">⬆️ 匯入備份</button>
         <button onclick="loadSamples()">✨ 載入範例資料</button>
         <button onclick="clearDone()">🧹 清除已完成</button>
+        <button onclick="clearAll()" style="color:#b91c1c">🗑️ 清除全部資料</button>
       </div>
     </div>
   </div>
@@ -587,6 +588,13 @@ function clearDone(){
   if(!data.some(i=>i.done)){ alert("目前沒有已完成的項目"); return; }
   if(confirm("清除所有已完成的項目？")){ data=data.filter(i=>!i.done); save(); }
 }
+function clearAll(){
+  closeMenu();
+  if(!data.length){ alert("目前沒有資料"); return; }
+  if(confirm("確定清除全部 "+data.length+" 筆事項？\n（若已連線雲端，會一併清空雲端，無法復原）")){
+    data=[]; save();
+  }
+}
 
 /* ---------- reminders ---------- */
 function askNotify(){
@@ -735,7 +743,7 @@ function loadSamples(){
 /* ---------- 雲端同步（Google 試算表 + Apps Script，與工程系統相同方式）---------- */
 const CLOUD_KEY="todo_cloud_url";
 let cloudUrl=""; try{cloudUrl=localStorage.getItem(CLOUD_KEY)||"";}catch(e){}
-let lastSyncJson="", skipPush=false, pushTimer=null;
+let lastSyncJson="", skipPush=false, pushTimer=null, firstSync=true;
 function setSync(s){
   const el=document.getElementById("syncBadge"); if(!el) return;
   const m={loading:"☁️ 讀取中…",syncing:"🔄 同步中…",synced:"✅ 已同步",error:"⚠ 連線失敗",off:""};
@@ -766,10 +774,18 @@ function cloudPull(){
           data=normalizeArr(arr); render();
         }
       } else {
-        // 雲端是空的：絕不覆蓋本機資料；若本機有資料就上傳當作初始資料
-        if(data.length){ lastSyncJson=""; cloudPush(); }
-        else { lastSyncJson="[]"; }
+        // 雲端是空的
+        if(firstSync && data.length){
+          // 首次連線且本機有資料：上傳本機當基準（避免被空雲端清掉）
+          lastSyncJson=""; cloudPush();
+        } else if(data.length){
+          // 連線後雲端變空（其他裝置已清空）：跟著清空
+          skipPush=true; lastSyncJson="[]"; data=[]; render();
+        } else {
+          lastSyncJson="[]";
+        }
       }
+      firstSync=false;
     }
     setSync("synced");
   }).catch(()=>setSync("error"));
@@ -793,7 +809,7 @@ function saveCloud(){
   const u=document.getElementById("cloudInput").value.trim();
   try{ if(u)localStorage.setItem(CLOUD_KEY,u); else localStorage.removeItem(CLOUD_KEY); }catch(e){}
   cloudUrl=u; closeCloud();
-  if(u){ lastSyncJson=""; skipPush=false; cloudPull(); } else setSync("off");
+  if(u){ lastSyncJson=""; skipPush=false; firstSync=true; cloudPull(); } else setSync("off");
 }
 
 /* ---------- menu ---------- */
