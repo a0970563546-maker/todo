@@ -179,10 +179,14 @@
   .pg-cap{position:absolute; top:10px; left:0; right:0; text-align:center; font-size:12.5px; font-weight:700; color:#8b6f4e; letter-spacing:.5px}
   .cat{position:absolute; bottom:22px}
   .cat.gold{left:8%; width:150px}
-  .cat.grey{right:7%; width:160px; bottom:22px}
+  .cat.grey{left:34%; width:150px; bottom:22px}
+  .rosiya{position:absolute; right:5%; bottom:16px; width:96px; height:96px; z-index:2; animation:rosbob 4s ease-in-out infinite}
+  .rosiya img{width:100%; height:100%; border-radius:50%; object-fit:cover; border:4px solid #fff; box-shadow:0 5px 12px rgba(0,0,0,.2); display:block}
+  @keyframes rosbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
   .cat-name{position:absolute; bottom:4px; font-size:12px; font-weight:800; padding:2px 12px; border-radius:999px; box-shadow:var(--shadow); z-index:3}
   .gold-name{left:13%; background:#fde9c4; color:#9a6b1f; border:1px solid #f3cf8f}
-  .grey-name{right:13%; background:#e8ebee; color:#566069; border:1px solid #cdd3d8}
+  .grey-name{left:37%; background:#e8ebee; color:#566069; border:1px solid #cdd3d8}
+  .rosiya-name{right:8%; background:#dfe6ec; color:#3f4a55; border:1px solid #c4cfd8}
   .yarn{position:absolute; bottom:34px; left:24%; width:30px; margin-left:-15px; animation:yarn 2.4s ease-in-out infinite}
   @keyframes yarn{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-46px) translateX(-16px) rotate(-120deg)}50%{transform:translateY(-8px) rotate(-200deg)}75%{transform:translateY(-40px) translateX(16px) rotate(-320deg)}}
   .heart{position:absolute; font-size:15px; opacity:0; animation:heart 3.6s ease-in infinite}
@@ -214,7 +218,7 @@
   .bc-twinkle{animation:bctwinkle 1.6s ease-in-out infinite; transform-box:fill-box; transform-origin:center}
   @keyframes bctwinkle{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
   @media(max-width:480px){
-    .cat.gold{width:118px} .cat.grey{width:128px} .playground{height:150px} .blackcat{width:46px}
+    .cat.gold{width:104px} .cat.grey{width:112px} .playground{height:150px} .rosiya{width:70px;height:70px}
   }
 </style>
 </head>
@@ -269,7 +273,7 @@
 
   <!-- cat playground -->
   <div class="playground" aria-hidden="true">
-    <div class="pg-cap">Q比 & 酷比 陪你一起加油 🐾</div>
+    <div class="pg-cap">Rosiya 看著 Q比 & 酷比 玩耍 🐾</div>
     <div class="pg-floor"></div>
     <span class="heart h1">💛</span><span class="heart h2">🩶</span><span class="heart h3">💛</span>
     <div id="goldCat" class="cat gold"></div>
@@ -277,9 +281,8 @@
     <div id="greyCat" class="cat grey"></div>
     <div class="cat-name gold-name">Q比</div>
     <div class="cat-name grey-name">酷比</div>
-    <div class="blackcat" aria-hidden="true">
-      <img class="bc-in" src="russian-blue-cat.png" alt="" draggable="false">
-    </div>
+    <div class="rosiya" aria-hidden="true"><img src="rosiya.png" alt="" draggable="false"></div>
+    <div class="cat-name rosiya-name">Rosiya</div>
   </div>
 </div>
 
