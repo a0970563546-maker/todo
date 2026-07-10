@@ -5,10 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#2563eb">
 <title>待辦事項追蹤系統</title>
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
-<link rel="icon" type="image/png" href="favicon-32.png">
-<meta name="apple-mobile-web-app-title" content="待辦追蹤">
-<meta name="apple-mobile-web-app-capable" content="yes">
 <style>
   :root{
     --bg:#f4f6fb; --card:#ffffff; --ink:#1e293b; --muted:#64748b;
@@ -179,15 +175,11 @@
   .pg-cap{position:absolute; top:10px; left:0; right:0; text-align:center; font-size:12.5px; font-weight:700; color:#8b6f4e; letter-spacing:.5px}
   .cat{position:absolute; bottom:22px}
   .cat.gold{left:8%; width:150px}
-  .cat.grey{left:34%; width:150px; bottom:22px}
-  .rosiya{position:absolute; right:5%; bottom:16px; width:96px; height:96px; z-index:2; animation:rosbob 4s ease-in-out infinite}
-  .rosiya img{width:100%; height:100%; border-radius:50%; object-fit:cover; border:4px solid #fff; box-shadow:0 5px 12px rgba(0,0,0,.2); display:block}
-  @keyframes rosbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+  .cat.grey{right:7%; width:160px; bottom:22px}
   .cat-name{position:absolute; bottom:4px; font-size:12px; font-weight:800; padding:2px 12px; border-radius:999px; box-shadow:var(--shadow); z-index:3}
   .gold-name{left:13%; background:#fde9c4; color:#9a6b1f; border:1px solid #f3cf8f}
-  .grey-name{left:37%; background:#e8ebee; color:#566069; border:1px solid #cdd3d8}
-  .rosiya-name{right:8%; background:#dfe6ec; color:#3f4a55; border:1px solid #c4cfd8}
-  .yarn{position:absolute; bottom:34px; left:24%; width:30px; margin-left:-15px; animation:yarn 2.4s ease-in-out infinite}
+  .grey-name{right:13%; background:#e8ebee; color:#566069; border:1px solid #cdd3d8}
+  .yarn{position:absolute; bottom:34px; left:50%; width:34px; margin-left:-17px; animation:yarn 2.4s ease-in-out infinite}
   @keyframes yarn{0%,100%{transform:translateY(0) rotate(0)}25%{transform:translateY(-46px) translateX(-16px) rotate(-120deg)}50%{transform:translateY(-8px) rotate(-200deg)}75%{transform:translateY(-40px) translateX(16px) rotate(-320deg)}}
   .heart{position:absolute; font-size:15px; opacity:0; animation:heart 3.6s ease-in infinite}
   .h1{left:26%; animation-delay:.2s} .h2{left:62%; animation-delay:1.6s} .h3{left:46%; animation-delay:2.8s}
@@ -204,25 +196,20 @@
   @keyframes ear{0%,90%,100%{transform:rotate(0)}94%{transform:rotate(-9deg)}}
   .body-wig{animation:wig 1.8s ease-in-out infinite; transform-box:fill-box; transform-origin:bottom center}
   @keyframes wig{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-3px) rotate(1.5deg)}}
-  /* walking black cat */
-  .blackcat{position:absolute; bottom:10px; left:50%; transform:translateX(-50%); width:64px; z-index:2}
-  @keyframes bcwalk{0%{left:5%;transform:scaleX(1)}46%{left:78%;transform:scaleX(1)}50%{left:78%;transform:scaleX(-1)}96%{left:5%;transform:scaleX(-1)}100%{left:5%;transform:scaleX(1)}}
-  .blackcat .bc-in{display:block; width:100%; height:auto; animation:bcbob 3.4s ease-in-out infinite; filter:drop-shadow(0 3px 3px rgba(0,0,0,.12))}
-  @keyframes bcbob{0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-2px) scale(1.02)}}
-  .bc-tail{animation:bctail 1.2s ease-in-out infinite; transform-box:fill-box; transform-origin:bottom right}
-  @keyframes bctail{0%,100%{transform:rotate(-7deg)}50%{transform:rotate(11deg)}}
-  .bc-legA{animation:bclegA .5s linear infinite; transform-box:fill-box; transform-origin:top center}
-  .bc-legB{animation:bclegB .5s linear infinite; transform-box:fill-box; transform-origin:top center}
-  @keyframes bclegA{0%,100%{transform:rotate(13deg)}50%{transform:rotate(-13deg)}}
-  @keyframes bclegB{0%,100%{transform:rotate(-13deg)}50%{transform:rotate(13deg)}}
-  .bc-twinkle{animation:bctwinkle 1.6s ease-in-out infinite; transform-box:fill-box; transform-origin:center}
-  @keyframes bctwinkle{0%,100%{opacity:.3;transform:scale(.7)}50%{opacity:1;transform:scale(1.15)}}
   @media(max-width:480px){
-    .cat.gold{width:104px} .cat.grey{width:112px} .playground{height:150px} .rosiya{width:70px;height:70px}
+    .cat.gold{width:118px} .cat.grey{width:128px} .playground{height:150px}
   }
 </style>
 </head>
 <body>
+<!-- ▼ 統一導覽列（三系統共用）▼ -->
+<nav id="uniNav" style="background:#2E5B8F;display:flex;gap:2px;align-items:center;padding:0 10px;overflow-x:auto;font-family:'Microsoft JhengHei','PingFang TC',sans-serif;-webkit-overflow-scrolling:touch">
+  <span style="color:#9FB6CE;font-weight:700;font-size:12.5px;padding:11px 8px;white-space:nowrap">🔗 工作平台</span>
+  <a href="https://a0970563546-maker.github.io/engmanagement/" style="color:#C7D5E4;text-decoration:none;font-size:13.5px;font-weight:600;padding:11px 10px;white-space:nowrap;border-bottom:3px solid transparent">🏗️ 工程管理</a>
+  <a href="https://a0970563546-maker.github.io/todo/" style="color:#FFFFFF;text-decoration:none;font-size:13.5px;font-weight:800;padding:11px 10px;white-space:nowrap;border-bottom:3px solid #E8C87E">📋 待辦追蹤</a>
+  <a href="https://a0970563546-maker.github.io/taitung-gantt/" style="color:#C7D5E4;text-decoration:none;font-size:13.5px;font-weight:600;padding:11px 10px;white-space:nowrap;border-bottom:3px solid transparent">📅 排程甘特圖</a>
+</nav>
+<!-- ▲ 統一導覽列 ▲ -->
 
 <header>
   <div class="h-row">
@@ -239,7 +226,6 @@
         <button onclick="document.getElementById('importFile').click()">⬆️ 匯入備份</button>
         <button onclick="loadSamples()">✨ 載入範例資料</button>
         <button onclick="clearDone()">🧹 清除已完成</button>
-        <button onclick="clearAll()" style="color:#b91c1c">🗑️ 清除全部資料</button>
       </div>
     </div>
   </div>
@@ -273,6 +259,7 @@
 
   <!-- cat playground -->
   <div class="playground" aria-hidden="true">
+    <div class="pg-cap">Q比 & 酷比 陪你一起加油 🐾</div>
     <div class="pg-floor"></div>
     <span class="heart h1">💛</span><span class="heart h2">🩶</span><span class="heart h3">💛</span>
     <div id="goldCat" class="cat gold"></div>
@@ -280,8 +267,6 @@
     <div id="greyCat" class="cat grey"></div>
     <div class="cat-name gold-name">Q比</div>
     <div class="cat-name grey-name">酷比</div>
-    <div class="rosiya" aria-hidden="true"><img src="rosiya.png" alt="" draggable="false"></div>
-    <div class="cat-name rosiya-name">Rosiya</div>
   </div>
 </div>
 
@@ -610,13 +595,6 @@ function clearDone(){
   if(!data.some(i=>i.done)){ alert("目前沒有已完成的項目"); return; }
   if(confirm("清除所有已完成的項目？")){ data=data.filter(i=>!i.done); save(); }
 }
-function clearAll(){
-  closeMenu();
-  if(!data.length){ alert("目前沒有資料"); return; }
-  if(confirm("確定清除全部 "+data.length+" 筆事項？\n（若已連線雲端，會一併清空雲端，無法復原）")){
-    data=[]; save();
-  }
-}
 
 /* ---------- reminders ---------- */
 function askNotify(){
@@ -765,7 +743,7 @@ function loadSamples(){
 /* ---------- 雲端同步（Google 試算表 + Apps Script，與工程系統相同方式）---------- */
 const CLOUD_KEY="todo_cloud_url";
 let cloudUrl=""; try{cloudUrl=localStorage.getItem(CLOUD_KEY)||"";}catch(e){}
-let lastSyncJson="", skipPush=false, pushTimer=null, firstSync=true;
+let lastSyncJson="", skipPush=false, pushTimer=null;
 function setSync(s){
   const el=document.getElementById("syncBadge"); if(!el) return;
   const m={loading:"☁️ 讀取中…",syncing:"🔄 同步中…",synced:"✅ 已同步",error:"⚠ 連線失敗",off:""};
@@ -788,26 +766,11 @@ function cloudPull(){
   setSync("loading");
   fetch(cloudUrl).then(r=>r.json()).then(arr=>{
     if(Array.isArray(arr)){
-      if(arr.length){
-        // 雲端有資料：以雲端為準
-        const json=JSON.stringify(arr);
-        if(json!==lastSyncJson){
-          lastSyncJson=json; skipPush=true;
-          data=normalizeArr(arr); render();
-        }
-      } else {
-        // 雲端是空的
-        if(firstSync && data.length){
-          // 首次連線且本機有資料：上傳本機當基準（避免被空雲端清掉）
-          lastSyncJson=""; cloudPush();
-        } else if(data.length){
-          // 連線後雲端變空（其他裝置已清空）：跟著清空
-          skipPush=true; lastSyncJson="[]"; data=[]; render();
-        } else {
-          lastSyncJson="[]";
-        }
+      const json=JSON.stringify(arr);
+      if(json!==lastSyncJson){
+        lastSyncJson=json; skipPush=true;
+        data=normalizeArr(arr); render();
       }
-      firstSync=false;
     }
     setSync("synced");
   }).catch(()=>setSync("error"));
@@ -831,19 +794,7 @@ function saveCloud(){
   const u=document.getElementById("cloudInput").value.trim();
   try{ if(u)localStorage.setItem(CLOUD_KEY,u); else localStorage.removeItem(CLOUD_KEY); }catch(e){}
   cloudUrl=u; closeCloud();
-  if(u){
-    lastSyncJson=""; skipPush=false; firstSync=true;
-    if(data.length){
-      // 連線時本機已有資料：問使用者要以哪邊為主，避免本機資料被雲端蓋掉
-      if(confirm("要把「這台目前的 "+data.length+" 筆資料」上傳並覆蓋雲端嗎？\n\n按「確定」＝以這台為主（上傳）\n按「取消」＝改用雲端現有的資料")){
-        cloudPush();
-      } else {
-        cloudPull();
-      }
-    } else {
-      cloudPull();
-    }
-  } else setSync("off");
+  if(u){ lastSyncJson=""; skipPush=false; cloudPull(); } else setSync("off");
 }
 
 /* ---------- menu ---------- */
